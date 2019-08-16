@@ -68,6 +68,10 @@ class Instructor extends Person {
     grade(student, subject) {
         return `${student.name} receives a perfect score on ${subject}.`; 
     }
+    affectGrade(student) {
+        student.grade += Math.random()*10 - 5;
+        console.log(student.grade);
+    }
 }
 
 const steve = new Instructor ({
@@ -104,6 +108,7 @@ class Student extends Person {
         this.previousBackground = studentAttributes.previousBackground;
         this.className = studentAttributes.className;
         this.favSubjects = studentAttributes.favSubjects;
+        this.grade = studentAttributes.grade; 
       
     }
     listSubjects() {
@@ -116,16 +121,25 @@ class Student extends Person {
     sprintChallenge(subject) {
         console.log( `${this.name} has begun a sprint challenge on ${subject}.`);
     }
+    graduate() {
+        if (this.grade >= 70) {
+            return "Congratulations, You've graduated"; 
+        } else {
+            return "Sorry, please improve your grade to be able to graduate";
+        }
+    }
 }
 
 const bob = new Student ({
     name: 'Bob',
-    favSubjects: ['JS', 'HTML', 'React']
+    favSubjects: ['JS', 'HTML', 'React'],
+    grade: 74
 });
 
 const joe = new Student ({
     name: 'Joe',
-    favSubjects: ['LESS', 'Java', 'React']
+    favSubjects: ['LESS', 'Java', 'React'],
+    grade: 93
 });
 
 /*
@@ -182,9 +196,12 @@ console.log(megan.debugsCode(bob, 'CSS'));
 
 console.log(kimberlee.standUp('WebPT9 Sunday'));
 
+lisa.affectGrade(bob);
 /*Stretch Problem
 Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
-Now that our students have a grade build out a method on the Instructor (this will be used by BOTH instructors and PM's) that will randomly add or subtract points to a student's grade. Math.random will help.
+Now that our students have a grade build out a method on the Instructor 
+(this will be used by BOTH instructors and PM's) 
+that will randomly add or subtract points to a student's grade. Math.random will help.
 Add a graduate method to a student.
 This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
 If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
